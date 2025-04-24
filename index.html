@@ -1,0 +1,880 @@
+<html lang="en">
+ <head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>
+   Dashboard Jualan Baju - Full Functional
+  </title>
+  <script src="https://cdn.tailwindcss.com">
+  </script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+  <style>
+   body {
+      font-family: 'Poppins', sans-serif;
+    }
+   /* Scrollbar for tables */
+   tbody::-webkit-scrollbar {
+     width: 8px;
+     height: 8px;
+   }
+   tbody::-webkit-scrollbar-thumb {
+     background-color: rgba(107, 114, 128, 0.5);
+     border-radius: 4px;
+   }
+  </style>
+ </head>
+ <body class="bg-gradient-to-r from-gray-100 via-white to-gray-100 min-h-screen flex flex-col">
+  <div id="app" class="flex-grow flex flex-col">
+   <!-- Login Page -->
+   <section id="login-section" class="flex-grow flex items-center justify-center px-6 sm:px-8 lg:px-10">
+    <div class="max-w-md w-full bg-white rounded-3xl shadow-2xl p-10 sm:p-12 md:p-16">
+     <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 mb-8 text-center tracking-wide">
+      Masuk ke Dashboard
+     </h1>
+     <form id="login-form" class="space-y-6" autocomplete="off">
+      <div>
+       <label class="block text-sm font-semibold text-gray-700 mb-2" for="username">
+        Username
+       </label>
+       <input autocomplete="username" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition text-base sm:text-lg" id="username" name="username" placeholder="Masukkan username" required="" type="text"/>
+      </div>
+      <div>
+       <label class="block text-sm font-semibold text-gray-700 mb-2" for="password">
+        Password
+       </label>
+       <input autocomplete="current-password" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition text-base sm:text-lg" id="password" name="password" placeholder="Masukkan password" required="" type="password"/>
+      </div>
+      <button class="w-full py-3 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white font-semibold rounded-lg shadow-lg transition shadow-blue-400/50 flex items-center justify-center space-x-3 text-lg sm:text-xl" type="submit">
+       <i class="fas fa-sign-in-alt">
+       </i>
+       <span>
+        Masuk
+       </span>
+      </button>
+      <p class="text-center text-sm text-red-600 font-semibold hidden" id="login-error">
+       Username atau password salah.
+      </p>
+     </form>
+    </div>
+   </section>
+   <!-- Dashboard Page -->
+   <section id="dashboard-section" class="hidden flex-grow flex flex-col">
+    <!-- Navbar -->
+    <nav class="bg-white/90 backdrop-blur-md shadow-lg sticky top-0 z-50">
+     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16 items-center">
+       <div class="flex items-center space-x-4">
+        <img alt="Logo toko baju berwarna biru dengan huruf putih, desain minimalis dan modern" class="h-10 w-10 sm:h-12 sm:w-12 rounded-lg shadow-md" height="48" src="https://storage.googleapis.com/a1aa/image/67b6592a-1b77-4fbe-d550-c394be6476d2.jpg" width="48"/>
+        <span class="font-extrabold text-xl sm:text-2xl text-gray-900 tracking-wide select-none">
+         Baju
+         <span class="text-blue-600">
+          Elegan
+         </span>
+        </span>
+       </div>
+       <div class="hidden md:flex items-center space-x-8 font-semibold text-gray-700" id="nav-links">
+        <a class="relative group px-3 py-2 rounded-md hover:text-blue-600 transition text-sm sm:text-base" href="#" id="nav-dashboard">
+         Dashboard
+         <span class="absolute left-0 -bottom-1 w-full h-0.5 bg-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded">
+         </span>
+        </a>
+        <a class="relative group px-3 py-2 rounded-md hover:text-blue-600 transition text-sm sm:text-base" href="#" id="nav-produk">
+         Produk
+         <span class="absolute left-0 -bottom-1 w-full h-0.5 bg-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded">
+         </span>
+        </a>
+        <a class="relative group px-3 py-2 rounded-md hover:text-blue-600 transition text-sm sm:text-base" href="#" id="nav-pesanan">
+         Pesanan
+         <span class="absolute left-0 -bottom-1 w-full h-0.5 bg-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded">
+         </span>
+        </a>
+        <a class="relative group px-3 py-2 rounded-md hover:text-blue-600 transition text-sm sm:text-base" href="#" id="nav-pelanggan">
+         Pelanggan
+         <span class="absolute left-0 -bottom-1 w-full h-0.5 bg-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded">
+         </span>
+        </a>
+        <a class="relative group px-3 py-2 rounded-md hover:text-blue-600 transition text-sm sm:text-base" href="#" id="nav-laporan">
+         Laporan
+         <span class="absolute left-0 -bottom-1 w-full h-0.5 bg-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded">
+         </span>
+        </a>
+        <a class="relative group px-3 py-2 rounded-md hover:text-blue-600 transition text-sm sm:text-base hidden" href="#" id="nav-akun-master">
+         Akun Master
+         <span class="absolute left-0 -bottom-1 w-full h-0.5 bg-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded">
+         </span>
+        </a>
+        <a class="relative group px-3 py-2 rounded-md hover:text-blue-600 transition text-sm sm:text-base hidden" href="#" id="nav-akun-admin">
+         Akun Admin
+         <span class="absolute left-0 -bottom-1 w-full h-0.5 bg-blue-600 scale-x-0 group-hover:scale-x-100 transition-transform origin-left rounded">
+         </span>
+        </a>
+       </div>
+       <div class="flex items-center space-x-3">
+        <span class="hidden md:block text-gray-700 font-semibold text-sm sm:text-base" id="user-role-display">
+        </span>
+        <button aria-label="Toggle menu" class="text-gray-700 focus:outline-none md:hidden" id="menu-btn">
+         <i class="fas fa-bars fa-lg">
+         </i>
+        </button>
+        <button aria-label="Logout" class="text-gray-700 hover:text-red-600 transition" id="logout-btn" title="Logout">
+         <i class="fas fa-sign-out-alt fa-lg">
+         </i>
+        </button>
+       </div>
+      </div>
+     </div>
+     <div class="hidden md:hidden px-6 py-4 space-y-3 bg-white/90 backdrop-blur-md border-t border-gray-200" id="mobile-menu">
+      <a class="block text-gray-700 hover:text-blue-600 font-semibold px-3 py-2 rounded-md transition text-base" href="#" id="mobile-nav-dashboard">
+       Dashboard
+      </a>
+      <a class="block text-gray-700 hover:text-blue-600 font-semibold px-3 py-2 rounded-md transition text-base" href="#" id="mobile-nav-produk">
+       Produk
+      </a>
+      <a class="block text-gray-700 hover:text-blue-600 font-semibold px-3 py-2 rounded-md transition text-base" href="#" id="mobile-nav-pesanan">
+       Pesanan
+      </a>
+      <a class="block text-gray-700 hover:text-blue-600 font-semibold px-3 py-2 rounded-md transition text-base" href="#" id="mobile-nav-pelanggan">
+       Pelanggan
+      </a>
+      <a class="block text-gray-700 hover:text-blue-600 font-semibold px-3 py-2 rounded-md transition text-base" href="#" id="mobile-nav-laporan">
+       Laporan
+      </a>
+      <a class="block text-gray-700 hover:text-blue-600 font-semibold px-3 py-2 rounded-md transition text-base hidden" href="#" id="mobile-nav-akun-master">
+       Akun Master
+      </a>
+      <a class="block text-gray-700 hover:text-blue-600 font-semibold px-3 py-2 rounded-md transition text-base hidden" href="#" id="mobile-nav-akun-admin">
+       Akun Admin
+      </a>
+     </div>
+    </nav>
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 overflow-auto">
+     <!-- Dashboard Content -->
+     <section id="dashboard-content">
+      <!-- Header -->
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-10">
+       <h1 class="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight mb-6 md:mb-0">
+        Dashboard Jualan Baju
+       </h1>
+       <button class="inline-flex items-center px-5 py-3 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white font-semibold rounded-lg shadow-lg transition shadow-blue-400/50 text-base sm:text-lg" id="btn-tambah-produk">
+        <i class="fas fa-plus mr-3 text-lg sm:text-xl">
+        </i>
+        Tambah Produk
+       </button>
+      </div>
+      <!-- Summary Cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-12" id="summary-cards">
+       <div class="bg-white rounded-2xl shadow-xl p-6 sm:p-7 flex items-center space-x-5 border border-gray-200 hover:shadow-2xl transition-shadow">
+        <div class="p-4 bg-blue-100 text-blue-700 rounded-full shadow-md">
+         <i class="fas fa-tshirt fa-2x sm:fa-3x">
+         </i>
+        </div>
+        <div>
+         <p class="text-xs sm:text-sm font-medium text-gray-500 uppercase tracking-wide">
+          Total Produk
+         </p>
+         <p class="text-2xl sm:text-3xl font-extrabold text-gray-900" id="total-produk">
+          128
+         </p>
+        </div>
+       </div>
+       <div class="bg-white rounded-2xl shadow-xl p-6 sm:p-7 flex items-center space-x-5 border border-gray-200 hover:shadow-2xl transition-shadow">
+        <div class="p-4 bg-green-100 text-green-700 rounded-full shadow-md">
+         <i class="fas fa-shopping-cart fa-2x sm:fa-3x">
+         </i>
+        </div>
+        <div>
+         <p class="text-xs sm:text-sm font-medium text-gray-500 uppercase tracking-wide">
+          Pesanan Hari Ini
+         </p>
+         <p class="text-2xl sm:text-3xl font-extrabold text-gray-900" id="pesanan-hari-ini">
+          34
+         </p>
+        </div>
+       </div>
+       <div class="bg-white rounded-2xl shadow-xl p-6 sm:p-7 flex items-center space-x-5 border border-gray-200 hover:shadow-2xl transition-shadow">
+        <div class="p-4 bg-yellow-100 text-yellow-700 rounded-full shadow-md">
+         <i class="fas fa-dollar-sign fa-2x sm:fa-3x">
+         </i>
+        </div>
+        <div>
+         <p class="text-xs sm:text-sm font-medium text-gray-500 uppercase tracking-wide">
+          Pendapatan Hari Ini
+         </p>
+         <p class="text-2xl sm:text-3xl font-extrabold text-gray-900" id="pendapatan-hari-ini">
+          Rp 5.400.000
+         </p>
+        </div>
+       </div>
+       <div class="bg-white rounded-2xl shadow-xl p-6 sm:p-7 flex items-center space-x-5 border border-gray-200 hover:shadow-2xl transition-shadow">
+        <div class="p-4 bg-red-100 text-red-700 rounded-full shadow-md">
+         <i class="fas fa-users fa-2x sm:fa-3x">
+         </i>
+        </div>
+        <div>
+         <p class="text-xs sm:text-sm font-medium text-gray-500 uppercase tracking-wide">
+          Pelanggan Aktif
+         </p>
+         <p class="text-2xl sm:text-3xl font-extrabold text-gray-900" id="pelanggan-aktif">
+          76
+         </p>
+        </div>
+       </div>
+      </div>
+     </section>
+     <!-- Produk Section -->
+     <section id="produk-section" class="hidden">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-10">
+       <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-6 md:mb-0">
+        Produk
+       </h2>
+       <button class="inline-flex items-center px-5 py-3 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white font-semibold rounded-lg shadow-lg transition shadow-blue-400/50 text-base sm:text-lg" id="btn-tambah-produk-2">
+        <i class="fas fa-plus mr-3 text-lg sm:text-xl">
+        </i>
+        Tambah Produk
+       </button>
+      </div>
+      <div class="overflow-x-auto rounded-lg shadow-lg border border-gray-200">
+       <table class="min-w-full bg-white rounded-lg divide-y divide-gray-200">
+        <thead class="bg-gradient-to-r from-blue-600 to-blue-500 text-white">
+         <tr>
+          <th class="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-semibold tracking-wide">
+           Gambar
+          </th>
+          <th class="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-semibold tracking-wide">
+           Nama Produk
+          </th>
+          <th class="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-semibold tracking-wide">
+           Kategori
+          </th>
+          <th class="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-semibold tracking-wide">
+           Harga
+          </th>
+          <th class="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-semibold tracking-wide">
+           Stok
+          </th>
+          <th class="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-semibold tracking-wide">
+           Status
+          </th>
+          <th class="px-4 sm:px-6 py-3 text-center text-xs sm:text-sm font-semibold tracking-wide">
+           Aksi
+          </th>
+         </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100" id="produk-list">
+        </tbody>
+       </table>
+      </div>
+     </section>
+     <!-- Pesanan Section -->
+     <section id="pesanan-section" class="hidden">
+      <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-6">
+       Pesanan
+      </h2>
+      <div class="overflow-x-auto rounded-lg shadow-lg border border-gray-200">
+       <table class="min-w-full bg-white rounded-lg divide-y divide-gray-200">
+        <thead class="bg-gradient-to-r from-blue-600 to-blue-500 text-white">
+         <tr>
+          <th class="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-semibold tracking-wide">
+           No. Pesanan
+          </th>
+          <th class="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-semibold tracking-wide">
+           Nama Pelanggan
+          </th>
+          <th class="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-semibold tracking-wide">
+           Produk
+          </th>
+          <th class="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-semibold tracking-wide">
+           Jumlah
+          </th>
+          <th class="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-semibold tracking-wide">
+           Total Harga
+          </th>
+          <th class="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-semibold tracking-wide">
+           Status
+          </th>
+          <th class="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-semibold tracking-wide">
+           Tanggal
+          </th>
+          <th class="px-4 sm:px-6 py-3 text-center text-xs sm:text-sm font-semibold tracking-wide">
+           Aksi
+          </th>
+         </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100" id="pesanan-list">
+        </tbody>
+       </table>
+      </div>
+     </section>
+     <!-- Pelanggan Section -->
+     <section id="pelanggan-section" class="hidden">
+      <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-6">
+       Pelanggan
+      </h2>
+      <div class="overflow-x-auto rounded-lg shadow-lg border border-gray-200">
+       <table class="min-w-full bg-white rounded-lg divide-y divide-gray-200">
+        <thead class="bg-gradient-to-r from-blue-600 to-blue-500 text-white">
+         <tr>
+          <th class="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-semibold tracking-wide">
+           Nama Pelanggan
+          </th>
+          <th class="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-semibold tracking-wide">
+           Email
+          </th>
+          <th class="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-semibold tracking-wide">
+           Telepon
+          </th>
+          <th class="px-4 sm:px-6 py-3 text-left text-xs sm:text-sm font-semibold tracking-wide">
+           Total Pesanan
+          </th>
+          <th class="px-4 sm:px-6 py-3 text-center text-xs sm:text-sm font-semibold tracking-wide">
+           Aksi
+          </th>
+         </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100" id="pelanggan-list">
+        </tbody>
+       </table>
+      </div>
+     </section>
+     <!-- Laporan Section -->
+     <section id="laporan-section" class="hidden">
+      <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-6">
+       Laporan
+      </h2>
+      <div class="overflow-x-auto rounded-lg shadow-lg border border-gray-200 p-6 bg-white">
+       <p class="text-gray-700 text-lg mb-4">
+        Laporan penjualan dan pendapatan akan ditampilkan di sini.
+       </p>
+       <img alt="Grafik batang berwarna biru menunjukkan pendapatan bulanan toko baju selama 12 bulan terakhir dengan latar putih bersih dan garis grid halus" class="w-full h-auto object-contain rounded-lg shadow" height="320" src="https://storage.googleapis.com/a1aa/image/aec6a7b6-909a-409b-34c7-a8b598bd8c02.jpg" width="800"/>
+      </div>
+     </section>
+     <!-- Akun Master Section -->
+     <section id="akun-master-section" class="hidden">
+      <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-6">
+       Akun Master
+      </h2>
+      <div class="overflow-x-auto rounded-lg shadow-lg border border-gray-200 p-6 bg-white">
+       <p class="text-gray-700 text-lg mb-4">
+        Kelola akun master di sini.
+       </p>
+       <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gradient-to-r from-blue-600 to-blue-500 text-white">
+         <tr>
+          <th class="px-4 py-3 text-left text-sm font-semibold">
+           Username
+          </th>
+          <th class="px-4 py-3 text-left text-sm font-semibold">
+           Role
+          </th>
+          <th class="px-4 py-3 text-center text-sm font-semibold">
+           Aksi
+          </th>
+         </tr>
+        </thead>
+        <tbody id="akun-master-list" class="divide-y divide-gray-100">
+        </tbody>
+       </table>
+      </div>
+     </section>
+     <!-- Akun Admin Section -->
+     <section id="akun-admin-section" class="hidden">
+      <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-6">
+       Akun Admin
+      </h2>
+      <div class="overflow-x-auto rounded-lg shadow-lg border border-gray-200 p-6 bg-white">
+       <p class="text-gray-700 text-lg mb-4">
+        Kelola akun admin di sini.
+       </p>
+       <table class="min-w-full divide-y divide-gray-200">
+        <thead class="bg-gradient-to-r from-blue-600 to-blue-500 text-white">
+         <tr>
+          <th class="px-4 py-3 text-left text-sm font-semibold">
+           Username
+          </th>
+          <th class="px-4 py-3 text-left text-sm font-semibold">
+           Role
+          </th>
+          <th class="px-4 py-3 text-center text-sm font-semibold">
+           Aksi
+          </th>
+         </tr>
+        </thead>
+        <tbody id="akun-admin-list" class="divide-y divide-gray-100">
+        </tbody>
+       </table>
+      </div>
+     </section>
+    </main>
+    <footer class="bg-white/90 backdrop-blur-md shadow-inner py-6 mt-auto border-t border-gray-200">
+     <div class="max-w-7xl mx-auto px-6 text-center text-gray-500 text-sm select-none">
+      © 2024 BajuElegan. All rights reserved.
+     </div>
+    </footer>
+   </section>
+  </div>
+  <script>
+   // User accounts with roles and passwords (in real app, never store passwords like this)
+    let users = [
+      { username: 'masteruser', password: 'masterpass', role: 'Master' },
+      { username: 'adminuser', password: 'adminpass', role: 'Admin' },
+      { username: 'kadek', password: '1234567', role: 'User' }
+    ];
+
+    // Sample data for products
+    let products = [
+      { id: 1, name: 'Baju Putih Lengan Panjang', category: 'Lengan Panjang', price: 120000, stock: 25, status: 'Tersedia', image: 'https://storage.googleapis.com/a1aa/image/c13cf733-0bd3-409c-eba9-1c0d97645d9d.jpg' },
+      { id: 2, name: 'Baju Hitam Polos', category: 'Lengan Pendek', price: 90000, stock: 40, status: 'Tersedia', image: 'https://storage.googleapis.com/a1aa/image/39e4ed54-75b0-4399-dd69-1c68da27b50a.jpg' },
+      { id: 3, name: 'Baju Merah Motif Floral', category: 'Lengan 3/4', price: 150000, stock: 15, status: 'Tersedia', image: 'https://storage.googleapis.com/a1aa/image/65dae5b9-a788-4271-4bfa-85e9f90a4ea8.jpg' },
+      { id: 4, name: 'Baju Abu-Abu Oversize', category: 'Lengan Panjang', price: 180000, stock: 10, status: 'Hampir Habis', image: 'https://storage.googleapis.com/a1aa/image/9ade1973-b65b-45f2-2c92-588867e1ee77.jpg' },
+      { id: 5, name: 'Baju Kuning Motif Polkadot', category: 'Lengan Pendek', price: 130000, stock: 0, status: 'Habis', image: 'https://storage.googleapis.com/a1aa/image/7fc49fab-2c5c-46bf-c0c1-b774df9dbf0e.jpg' }
+    ];
+
+    // Sample data for orders
+    let orders = [
+      { id: '00123', customer: 'Andi Wijaya', product: 'Baju Putih Lengan Panjang', quantity: 2, totalPrice: 240000, status: 'Selesai', date: '2024-06-10' },
+      { id: '00124', customer: 'Sari Dewi', product: 'Baju Hitam Polos', quantity: 1, totalPrice: 90000, status: 'Diproses', date: '2024-06-11' },
+      { id: '00125', customer: 'Budi Santoso', product: 'Baju Merah Motif Floral', quantity: 3, totalPrice: 450000, status: 'Dibatalkan', date: '2024-06-11' },
+      { id: '00126', customer: 'Dewi Lestari', product: 'Baju Abu-Abu Oversize', quantity: 1, totalPrice: 180000, status: 'Selesai', date: '2024-06-12' },
+      { id: '00127', customer: 'Rina Putri', product: 'Baju Kuning Motif Polkadot', quantity: 1, totalPrice: 130000, status: 'Diproses', date: '2024-06-12' }
+    ];
+
+    // Sample data for customers
+    let customers = [
+      { name: 'Andi Wijaya', email: 'andi@example.com', phone: '081234567890', totalOrders: 5 },
+      { name: 'Sari Dewi', email: 'sari@example.com', phone: '081298765432', totalOrders: 3 },
+      { name: 'Budi Santoso', email: 'budi@example.com', phone: '081212345678', totalOrders: 7 },
+      { name: 'Dewi Lestari', email: 'dewi@example.com', phone: '081223344556', totalOrders: 2 },
+      { name: 'Rina Putri', email: 'rina@example.com', phone: '081234987654', totalOrders: 4 }
+    ];
+
+    // DOM Elements
+    const loginSection = document.getElementById('login-section');
+    const dashboardSection = document.getElementById('dashboard-section');
+    const loginForm = document.getElementById('login-form');
+    const loginError = document.getElementById('login-error');
+    const userRoleDisplay = document.getElementById('user-role-display');
+    const menuAkunMaster = document.getElementById('nav-akun-master');
+    const menuAkunAdmin = document.getElementById('nav-akun-admin');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileMenuAkunMaster = document.getElementById('mobile-nav-akun-master');
+    const mobileMenuAkunAdmin = document.getElementById('mobile-nav-akun-admin');
+    const logoutBtn = document.getElementById('logout-btn');
+    const menuBtn = document.getElementById('menu-btn');
+
+    // Sections
+    const dashboardContent = document.getElementById('dashboard-content');
+    const produkSection = document.getElementById('produk-section');
+    const pesananSection = document.getElementById('pesanan-section');
+    const pelangganSection = document.getElementById('pelanggan-section');
+    const laporanSection = document.getElementById('laporan-section');
+    const akunMasterSection = document.getElementById('akun-master-section');
+    const akunAdminSection = document.getElementById('akun-admin-section');
+
+    // Lists
+    const produkList = document.getElementById('produk-list');
+    const pesananList = document.getElementById('pesanan-list');
+    const pelangganList = document.getElementById('pelanggan-list');
+    const akunMasterList = document.getElementById('akun-master-list');
+    const akunAdminList = document.getElementById('akun-admin-list');
+
+    // Summary cards
+    const totalProdukEl = document.getElementById('total-produk');
+    const pesananHariIniEl = document.getElementById('pesanan-hari-ini');
+    const pendapatanHariIniEl = document.getElementById('pendapatan-hari-ini');
+    const pelangganAktifEl = document.getElementById('pelanggan-aktif');
+
+    // Navigation links (desktop)
+    const navDashboard = document.getElementById('nav-dashboard');
+    const navProduk = document.getElementById('nav-produk');
+    const navPesanan = document.getElementById('nav-pesanan');
+    const navPelanggan = document.getElementById('nav-pelanggan');
+    const navLaporan = document.getElementById('nav-laporan');
+    const navAkunMaster = document.getElementById('nav-akun-master');
+    const navAkunAdmin = document.getElementById('nav-akun-admin');
+
+    // Navigation links (mobile)
+    const mobileNavDashboard = document.getElementById('mobile-nav-dashboard');
+    const mobileNavProduk = document.getElementById('mobile-nav-produk');
+    const mobileNavPesanan = document.getElementById('mobile-nav-pesanan');
+    const mobileNavPelanggan = document.getElementById('mobile-nav-pelanggan');
+    const mobileNavLaporan = document.getElementById('mobile-nav-laporan');
+    const mobileNavAkunMaster = document.getElementById('mobile-nav-akun-master');
+    const mobileNavAkunAdmin = document.getElementById('mobile-nav-akun-admin');
+
+    // Current logged in user
+    let currentUser = null;
+
+    // Utility: format currency
+    function formatCurrency(num) {
+      return 'Rp ' + num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    }
+
+    // Render products list
+    function renderProducts() {
+      produkList.innerHTML = '';
+      products.forEach(product => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-gray-50 transition-colors';
+        tr.innerHTML = `
+          <td class="px-4 sm:px-6 py-3 whitespace-nowrap">
+            <img alt="${product.name}, kategori ${product.category}, tampak depan" class="h-12 w-12 sm:h-14 sm:w-14 rounded-lg object-cover shadow-sm" src="${product.image}" width="56" height="56"/>
+          </td>
+          <td class="px-4 sm:px-6 py-3 whitespace-nowrap text-gray-900 font-semibold text-sm sm:text-lg">${product.name}</td>
+          <td class="px-4 sm:px-6 py-3 whitespace-nowrap text-gray-600 font-medium text-sm sm:text-base">${product.category}</td>
+          <td class="px-4 sm:px-6 py-3 whitespace-nowrap text-gray-900 font-semibold text-sm sm:text-base">${formatCurrency(product.price)}</td>
+          <td class="px-4 sm:px-6 py-3 whitespace-nowrap text-gray-900 font-semibold text-sm sm:text-base">${product.stock}</td>
+          <td class="px-4 sm:px-6 py-3 whitespace-nowrap">
+            <span class="px-2 py-1 text-xs sm:text-sm font-semibold rounded-full shadow-inner ${product.status === 'Tersedia' ? 'bg-green-100 text-green-800' : product.status === 'Hampir Habis' ? 'bg-yellow-100 text-yellow-800' : product.status === 'Habis' ? 'bg-red-100 text-red-800' : 'bg-gray-100 text-gray-600'}">${product.status}</span>
+          </td>
+          <td class="px-4 sm:px-6 py-3 whitespace-nowrap text-center space-x-3 text-sm sm:text-base">
+            <button aria-label="Edit produk ${product.name}" class="text-blue-600 hover:text-blue-800 transition" data-id="${product.id}" onclick="editProduct(${product.id})">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button aria-label="Hapus produk ${product.name}" class="text-red-600 hover:text-red-800 transition" data-id="${product.id}" onclick="deleteProduct(${product.id})">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </td>
+        `;
+        produkList.appendChild(tr);
+      });
+    }
+
+    // Render orders list
+    function renderOrders() {
+      pesananList.innerHTML = '';
+      orders.forEach(order => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-gray-50 transition-colors';
+        tr.innerHTML = `
+          <td class="px-4 sm:px-6 py-3 whitespace-nowrap text-gray-900 font-semibold text-sm sm:text-lg">${order.id}</td>
+          <td class="px-4 sm:px-6 py-3 whitespace-nowrap text-gray-900 font-medium text-sm sm:text-base">${order.customer}</td>
+          <td class="px-4 sm:px-6 py-3 whitespace-nowrap text-gray-900 font-medium text-sm sm:text-base">${order.product}</td>
+          <td class="px-4 sm:px-6 py-3 whitespace-nowrap text-gray-900 font-semibold text-sm sm:text-base">${order.quantity}</td>
+          <td class="px-4 sm:px-6 py-3 whitespace-nowrap text-gray-900 font-semibold text-sm sm:text-base">${formatCurrency(order.totalPrice)}</td>
+          <td class="px-4 sm:px-6 py-3 whitespace-nowrap">
+            <span class="px-2 py-1 text-xs sm:text-sm font-semibold rounded-full shadow-inner ${order.status === 'Selesai' ? 'bg-green-100 text-green-800' : order.status === 'Diproses' ? 'bg-yellow-100 text-yellow-800' : order.status === 'Dibatalkan' ? 'bg-red-100 text-red-800' : 'bg-gray-100 text-gray-600'}">${order.status}</span>
+          </td>
+          <td class="px-4 sm:px-6 py-3 whitespace-nowrap text-gray-600 font-medium text-sm sm:text-base">${order.date}</td>
+          <td class="px-4 sm:px-6 py-3 whitespace-nowrap text-center space-x-3 text-sm sm:text-base">
+            <button aria-label="Edit pesanan ${order.id}" class="text-blue-600 hover:text-blue-800 transition" data-id="${order.id}" onclick="editOrder('${order.id}')">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button aria-label="Hapus pesanan ${order.id}" class="text-red-600 hover:text-red-800 transition" data-id="${order.id}" onclick="deleteOrder('${order.id}')">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </td>
+        `;
+        pesananList.appendChild(tr);
+      });
+    }
+
+    // Render customers list
+    function renderCustomers() {
+      pelangganList.innerHTML = '';
+      customers.forEach(customer => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-gray-50 transition-colors';
+        tr.innerHTML = `
+          <td class="px-4 sm:px-6 py-3 whitespace-nowrap text-gray-900 font-semibold text-sm sm:text-lg">${customer.name}</td>
+          <td class="px-4 sm:px-6 py-3 whitespace-nowrap text-gray-900 font-medium text-sm sm:text-base">${customer.email}</td>
+          <td class="px-4 sm:px-6 py-3 whitespace-nowrap text-gray-900 font-medium text-sm sm:text-base">${customer.phone}</td>
+          <td class="px-4 sm:px-6 py-3 whitespace-nowrap text-gray-900 font-semibold text-sm sm:text-base">${customer.totalOrders}</td>
+          <td class="px-4 sm:px-6 py-3 whitespace-nowrap text-center text-sm sm:text-base">
+            <button aria-label="Edit pelanggan ${customer.name}" class="text-blue-600 hover:text-blue-800 transition" onclick="alert('Edit pelanggan ${customer.name}')">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button aria-label="Hapus pelanggan ${customer.name}" class="text-red-600 hover:text-red-800 transition" onclick="alert('Hapus pelanggan ${customer.name}')">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </td>
+        `;
+        pelangganList.appendChild(tr);
+      });
+    }
+
+    // Render akun master list
+    function renderAkunMaster() {
+      akunMasterList.innerHTML = '';
+      users.filter(u => u.role === 'Master').forEach(user => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-gray-50 transition-colors';
+        tr.innerHTML = `
+          <td class="px-4 py-3 text-gray-900 font-semibold">${user.username}</td>
+          <td class="px-4 py-3 text-gray-700">${user.role}</td>
+          <td class="px-4 py-3 text-center">
+            <button class="text-red-600 hover:text-red-800 transition" onclick="deleteUser('${user.username}')">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </td>
+        `;
+        akunMasterList.appendChild(tr);
+      });
+    }
+
+    // Render akun admin list
+    function renderAkunAdmin() {
+      akunAdminList.innerHTML = '';
+      users.filter(u => u.role === 'Admin').forEach(user => {
+        const tr = document.createElement('tr');
+        tr.className = 'hover:bg-gray-50 transition-colors';
+        tr.innerHTML = `
+          <td class="px-4 py-3 text-gray-900 font-semibold">${user.username}</td>
+          <td class="px-4 py-3 text-gray-700">${user.role}</td>
+          <td class="px-4 py-3 text-center">
+            <button class="text-red-600 hover:text-red-800 transition" onclick="deleteUser('${user.username}')">
+              <i class="fas fa-trash-alt"></i>
+            </button>
+          </td>
+        `;
+        akunAdminList.appendChild(tr);
+      });
+    }
+
+    // Update summary cards
+    function updateSummary() {
+      totalProdukEl.textContent = products.length;
+      pesananHariIniEl.textContent = orders.length;
+      let totalPendapatan = orders.reduce((sum, o) => sum + o.totalPrice, 0);
+      pendapatanHariIniEl.textContent = formatCurrency(totalPendapatan);
+      pelangganAktifEl.textContent = customers.length;
+    }
+
+    // Show only one section
+    function showSection(section) {
+      const sections = [dashboardContent, produkSection, pesananSection, pelangganSection, laporanSection, akunMasterSection, akunAdminSection];
+      sections.forEach(sec => {
+        if (sec === section) {
+          sec.classList.remove('hidden');
+        } else {
+          sec.classList.add('hidden');
+        }
+      });
+    }
+
+    // Navigation click handlers
+    function setupNavigation() {
+      // Desktop nav
+      navDashboard.addEventListener('click', e => {
+        e.preventDefault();
+        showSection(dashboardContent);
+      });
+      navProduk.addEventListener('click', e => {
+        e.preventDefault();
+        showSection(produkSection);
+      });
+      navPesanan.addEventListener('click', e => {
+        e.preventDefault();
+        showSection(pesananSection);
+      });
+      navPelanggan.addEventListener('click', e => {
+        e.preventDefault();
+        showSection(pelangganSection);
+      });
+      navLaporan.addEventListener('click', e => {
+        e.preventDefault();
+        showSection(laporanSection);
+      });
+      navAkunMaster.addEventListener('click', e => {
+        e.preventDefault();
+        showSection(akunMasterSection);
+      });
+      navAkunAdmin.addEventListener('click', e => {
+        e.preventDefault();
+        showSection(akunAdminSection);
+      });
+
+      // Mobile nav
+      mobileNavDashboard.addEventListener('click', e => {
+        e.preventDefault();
+        showSection(dashboardContent);
+        mobileMenu.classList.add('hidden');
+      });
+      mobileNavProduk.addEventListener('click', e => {
+        e.preventDefault();
+        showSection(produkSection);
+        mobileMenu.classList.add('hidden');
+      });
+      mobileNavPesanan.addEventListener('click', e => {
+        e.preventDefault();
+        showSection(pesananSection);
+        mobileMenu.classList.add('hidden');
+      });
+      mobileNavPelanggan.addEventListener('click', e => {
+        e.preventDefault();
+        showSection(pelangganSection);
+        mobileMenu.classList.add('hidden');
+      });
+      mobileNavLaporan.addEventListener('click', e => {
+        e.preventDefault();
+        showSection(laporanSection);
+        mobileMenu.classList.add('hidden');
+      });
+      mobileNavAkunMaster.addEventListener('click', e => {
+        e.preventDefault();
+        showSection(akunMasterSection);
+        mobileMenu.classList.add('hidden');
+      });
+      mobileNavAkunAdmin.addEventListener('click', e => {
+        e.preventDefault();
+        showSection(akunAdminSection);
+        mobileMenu.classList.add('hidden');
+      });
+    }
+
+    // Edit product (simple alert for demo)
+    window.editProduct = function(id) {
+      const product = products.find(p => p.id === id);
+      if (product) {
+        const newName = prompt('Edit Nama Produk:', product.name);
+        if (newName !== null && newName.trim() !== '') {
+          product.name = newName.trim();
+          renderProducts();
+        }
+      }
+    };
+
+    // Delete product
+    window.deleteProduct = function(id) {
+      if (confirm('Apakah Anda yakin ingin menghapus produk ini?')) {
+        products = products.filter(p => p.id !== id);
+        renderProducts();
+        updateSummary();
+      }
+    };
+
+    // Edit order (simple alert for demo)
+    window.editOrder = function(id) {
+      const order = orders.find(o => o.id === id);
+      if (order) {
+        const newStatus = prompt('Edit Status Pesanan (Selesai, Diproses, Dibatalkan):', order.status);
+        if (newStatus !== null && ['Selesai','Diproses','Dibatalkan'].includes(newStatus.trim())) {
+          order.status = newStatus.trim();
+          renderOrders();
+        }
+      }
+    };
+
+    // Delete order
+    window.deleteOrder = function(id) {
+      if (confirm('Apakah Anda yakin ingin menghapus pesanan ini?')) {
+        orders = orders.filter(o => o.id !== id);
+        renderOrders();
+        updateSummary();
+      }
+    };
+
+    // Delete user (for master/admin accounts)
+    window.deleteUser = function(username) {
+      if (confirm(`Apakah Anda yakin ingin menghapus akun ${username}?`)) {
+        users = users.filter(u => u.username !== username);
+        renderAkunMaster();
+        renderAkunAdmin();
+      }
+    };
+
+    // Add product form (simple prompt demo)
+    function addProduct() {
+      const name = prompt('Nama Produk:');
+      if (!name || name.trim() === '') return alert('Nama produk wajib diisi.');
+      const category = prompt('Kategori Produk:');
+      if (!category || category.trim() === '') return alert('Kategori produk wajib diisi.');
+      const priceStr = prompt('Harga Produk (angka):');
+      const price = parseInt(priceStr);
+      if (isNaN(price) || price <= 0) return alert('Harga produk harus angka positif.');
+      const stockStr = prompt('Stok Produk (angka):');
+      const stock = parseInt(stockStr);
+      if (isNaN(stock) || stock < 0) return alert('Stok produk harus angka nol atau lebih.');
+      let status = 'Tersedia';
+      if(stock === 0) status = 'Habis';
+      else if(stock <= 10) status = 'Hampir Habis';
+      const image = prompt('URL Gambar Produk (atau kosong untuk default):') || 'https://placehold.co/56x56?text=No+Image';
+
+      const newId = products.length ? Math.max(...products.map(p => p.id)) + 1 : 1;
+      products.push({ id: newId, name: name.trim(), category: category.trim(), price, stock, status, image });
+      renderProducts();
+      updateSummary();
+      alert('Produk berhasil ditambahkan.');
+    }
+
+    // Initialize app after login
+    function initApp() {
+      renderProducts();
+      renderOrders();
+      renderCustomers();
+      renderAkunMaster();
+      renderAkunAdmin();
+      updateSummary();
+      showSection(dashboardContent);
+      setupNavigation();
+    }
+
+    // Show/hide menu items based on role
+    function updateMenuByRole(role) {
+      userRoleDisplay.textContent = `Role: ${role}`;
+      if (role === 'Master') {
+        menuAkunMaster.classList.remove('hidden');
+        menuAkunAdmin.classList.remove('hidden');
+        mobileMenuAkunMaster.classList.remove('hidden');
+        mobileMenuAkunAdmin.classList.remove('hidden');
+      } else if (role === 'Admin') {
+        menuAkunMaster.classList.add('hidden');
+        menuAkunAdmin.classList.remove('hidden');
+        mobileMenuAkunMaster.classList.add('hidden');
+        mobileMenuAkunAdmin.classList.remove('hidden');
+      } else {
+        menuAkunMaster.classList.add('hidden');
+        menuAkunAdmin.classList.add('hidden');
+        mobileMenuAkunMaster.classList.add('hidden');
+        mobileMenuAkunAdmin.classList.add('hidden');
+      }
+    }
+
+    // Handle login form submit
+    loginForm.addEventListener('submit', e => {
+      e.preventDefault();
+      loginError.classList.add('hidden');
+      const username = loginForm.username.value.trim();
+      const password = loginForm.password.value;
+
+      const user = users.find(u => u.username === username && u.password === password);
+      if (user) {
+        currentUser = user;
+        loginSection.classList.add('hidden');
+        dashboardSection.classList.remove('hidden');
+        updateMenuByRole(user.role);
+        initApp();
+        loginForm.reset();
+      } else {
+        loginError.classList.remove('hidden');
+      }
+    });
+
+    // Logout button
+    logoutBtn.addEventListener('click', () => {
+      if (confirm('Apakah Anda yakin ingin logout?')) {
+        currentUser = null;
+        dashboardSection.classList.add('hidden');
+        loginSection.classList.remove('hidden');
+        userRoleDisplay.textContent = '';
+        menuAkunMaster.classList.add('hidden');
+        menuAkunAdmin.classList.add('hidden');
+        mobileMenuAkunMaster.classList.add('hidden');
+        mobileMenuAkunAdmin.classList.add('hidden');
+        if (!mobileMenu.classList.contains('hidden')) {
+          mobileMenu.classList.add('hidden');
+        }
+      }
+    });
+
+    // Toggle mobile menu
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // Add product button handlers
+    document.getElementById('btn-tambah-produk').addEventListener('click', addProduct);
+    document.getElementById('btn-tambah-produk-2').addEventListener('click', addProduct);
+  </script>
+ </body>
+</html>
